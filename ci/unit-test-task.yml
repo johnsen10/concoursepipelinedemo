@@ -1,0 +1,19 @@
+platform: linux
+image_resource:
+  type: registry-image
+  source:
+    repository: maven
+    tag: 3.6.0
+
+inputs:
+  - name: git
+outputs:
+  -name: build
+
+run:
+  path: /bin/sh
+  args:
+    - -c
+    - |
+      mvn -f git/pom.xml test
+      cp -R git/* build

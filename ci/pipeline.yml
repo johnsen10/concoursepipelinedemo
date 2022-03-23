@@ -1,0 +1,23 @@
+resources:
+  - name: git
+    icon: github
+    type: git
+    source:
+      uri: https://github.com/johnsen10/concoursepipelinedemo.git
+      branch: main
+#  - name: image
+#    type: registry-image
+#    source:
+#      repository: ((image-name))
+#      username: ((registry-username))
+#      password : ((registry-password))
+#      tag: latest
+#
+jobs:
+  - name: unit-test
+    plan:
+      - get: git
+        version: latest # Just process the latest Git commit
+        trigger: true
+      - task: run-unit-tests
+        file: git/ci/unit-test-task.yml

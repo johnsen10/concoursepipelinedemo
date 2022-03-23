@@ -1,0 +1,17 @@
+platform: linux
+image_resource:
+  type: registry-image
+  source:
+    repository: maven
+    tag: 3.6.0
+
+inputs:
+  - name: git
+
+outputs:
+  - name: image
+
+run:
+  - -c
+  - |
+    mvn -B -f compile jib:buildTar -DskipTests -Djib.outputPaths.tar=$(pwd)/image/departementimg.tar
