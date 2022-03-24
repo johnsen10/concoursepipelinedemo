@@ -21,13 +21,14 @@ jobs:
         trigger: true
       - task: run-unit-tests
         file: git/ci/unit-test-task.yml
+
   - name: create-image-push
     plan:
-      - get: git
-        passed:
-          - unit-test
-        trigger: true
-      - task: create-image
-        file: git/ci/docker-image-create-task.yml
-      - put: image
-        params: {image: image/departementimg.tar}
+    - get: git
+      passed:
+        - unit-test
+      trigger: true
+    - task: create-image
+      file: git/ci/docker-image-create-task.yml
+    - put: image
+      params: {image: image/departementimg.tar}

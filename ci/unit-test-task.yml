@@ -6,6 +6,9 @@ image_resource:
     repository: maven
     tag: 3.6.0
 
+caches:
+  - path: $HOME/.m2/repository
+
 inputs:
   - name: git
 outputs:
