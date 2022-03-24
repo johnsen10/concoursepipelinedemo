@@ -24,8 +24,9 @@ jobs:
   - name: create-image-push
     plan:
       - get: git
-        version: latest
-        passed: unit-test
+        passed:
+          - unit-test
+        trigger: true
       - task: create-image
         file: git/ci/docker-image-create-task.yml
       - put: image
