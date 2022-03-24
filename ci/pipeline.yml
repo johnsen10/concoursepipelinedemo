@@ -5,14 +5,14 @@ resources:
     source:
       uri: https://github.com/johnsen10/concoursepipelinedemo.git
       branch: main
-#  - name: image
-#    type: registry-image
-#    source:
-#      repository: ((image-name))
-#      username: ((registry-username))
-#      password : ((registry-password))
-#      tag: latest
-#
+  - name: image
+    type: registry-image
+    source:
+      repository: ((image-name))
+      username: ((registry-username))
+      password : ((registry-password))
+      tag: latest
+
 jobs:
   - name: unit-test
     plan:
@@ -21,3 +21,12 @@ jobs:
         trigger: true
       - task: run-unit-tests
         file: git/ci/unit-test-task.yml
+  - name: create-image-push
+    plan:
+      - get: git
+        version: latest
+        passed: unit-test
+      - task: create-image
+        file: git/ci/docker-image-create-task.yml
+      - put: image
+        params: {image: image/departementimg.tar}
