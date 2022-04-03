@@ -17,7 +17,7 @@ jobs:
   - name: unit-test
     plan:
       - get: git
-        version: latest # Just process the latest Git commit
+        version: latest #Just process the latest Git commit
         trigger: true
       - task: run-unit-tests
         file: git/ci/unit-test-task.yml
